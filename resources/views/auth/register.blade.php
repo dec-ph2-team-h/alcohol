@@ -50,6 +50,17 @@
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
+            <!-- user's favorite alcohol -->
+            <div class="mt-4">
+                <x-input-label for="favorite alcohol" :value="__('Your Favorite Alcohol')" />
+
+                <x-text-input id="favorite_alcohol" class="block mt-1 w-full"
+                                type="text"
+                                name="favorite_alcohol" required />
+
+                <x-input-error :messages="$errors->get('favorite_alcohol')" class="mt-2" />
+            </div>
+
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
