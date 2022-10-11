@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 // 1行追加
 use App\Models\Alcohol;
 
+
 class AlcoholsSeeder extends Seeder
 {
     /**
@@ -19,7 +20,7 @@ class AlcoholsSeeder extends Seeder
      */
     public function run()
     {
-        // 1行追加
-        Alcohol::factory()->count(10)->create();
+        //1行追加
+        \App\Models\Alcohol::factory()->count(10)->create();
     }
 }

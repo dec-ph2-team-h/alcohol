@@ -17,7 +17,7 @@ class AlcoholFactory extends Factory
     public function definition()
     {
         return [
-            //1行追加
+            //追加
             'name' => $this->faker->name,
             'degree' => $this->faker->numberBetween(1, 96),
             'amount' => $this->faker->numberBetween(100, 1000),
