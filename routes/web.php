@@ -21,4 +21,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/alcohol/input', function () {
+    $alcohols = [];
+    return view('alcohol.input',compact('alcohols'));
+})->middleware(['auth', 'verified'])->name('input');
+
 require __DIR__.'/auth.php';

@@ -39,21 +39,14 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'favorite_alcohol' => ['required', 'string', 'max:255'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'alcohol_id' => $request->favorite_alcohol, 
-            'cups' => $request->cups
+
         ]);
-
-        // $alcohol = Alcohol([
-        //     'name' => $request->favorite_alcohol
-        // ])
-
         event(new Registered($user));
 
         Auth::login($user);

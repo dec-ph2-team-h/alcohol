@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Alcohol extends Model
 {
     use HasFactory;
-
     protected $guarded = [
         'id'
         'name',
@@ -16,6 +15,4 @@ class Alcohol extends Model
         'amount'
         'phrase'
     ];
-
-    
 }
