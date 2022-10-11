@@ -4,10 +4,11 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-//3行追加
-use APP\Models\Alcohol;
+// 2行追加
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+// 1行追加
+use App\Models\Alcohol;
 
 
 class AlcoholsSeeder extends Seeder
@@ -19,7 +20,7 @@ class AlcoholsSeeder extends Seeder
      */
     public function run()
     {
-        //一行追加
+        //1行追加
         \App\Models\Alcohol::factory()->count(10)->create();
     }
 }
