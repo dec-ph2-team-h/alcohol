@@ -53,8 +53,9 @@
             <!-- user's favorite alcohol (プルダウン) -->
             <div class="mt-4">
                 <div class="form-group">
-                    <label for="alcohol-id">{{ __('your favorite alcohol') }}<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
-                    <select class="form-control" id="alcohol-id" name="alcohol_id">
+                    <!-- <label for="alcohol-id">{{ __('your favorite alcohol') }}<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label> -->
+                    <x-input-label for="alcohol_id" :value="__('Your Favorite Alcohol')" />
+                    <select class="block mt-1 w-full"  id="alcohol_id" name="alcohol_id">
                         @foreach ($alcohols as $alcohol)
                             <option value="{{ $alcohol->id }}">{{ $alcohol->name }}</option>
                         @endforeach
@@ -67,7 +68,7 @@
                 <x-input-label for="cups" :value="__('the number of cups you can drink')" />
 
                 <x-text-input id="cups" class="block mt-1 w-full"
-                                type="number"
+                                type="number" min="1"
                                 name="cups" required />
 
                 <x-input-error :messages="$errors->get('cups')" class="mt-2" />
