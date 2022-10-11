@@ -9,10 +9,10 @@ class Alcohol extends Model
 {
     use HasFactory;
     protected $guarded = [
-        'id'
+        'id',
         'name',
         'degree',
-        'amount'
-        'phrase'
+        'amount',
+        'phrase',
     ];
 }
