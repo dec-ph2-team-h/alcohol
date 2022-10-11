@@ -9,7 +9,8 @@ class Alcohol extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    protected $guarded = [
+        'id'
         'name',
         'degree',
         'amount'
