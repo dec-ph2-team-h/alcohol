@@ -50,6 +50,7 @@
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
+
             <!-- user's favorite alcohol (プルダウン) -->
             <div class="mt-4">
                 <div class="form-group">
