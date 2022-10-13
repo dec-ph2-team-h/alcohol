@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//ouputのルーティング
 Route::get('/output', function () {
     return view('output');
 })->middleware(['auth', 'verified'])->name('output');
@@ -24,5 +25,12 @@ Route::get('/output', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+//inputのルーティング
+Route::get('/alcohol/input', function () {
+    $alcohols = [];
+    return view('alcohol.input',compact('alcohols'));
+})->middleware(['auth', 'verified'])->name('input');
+
 
 require __DIR__.'/auth.php';

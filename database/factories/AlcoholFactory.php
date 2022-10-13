@@ -17,11 +17,15 @@ class AlcoholFactory extends Factory
     public function definition()
     {
         return [
-            //
+
+            //追加
             'name' => $this->faker->name,
             'degree' => $this->faker->numberBetween(1, 96),
             'amount' => $this->faker->numberBetween(100, 1000),
             'phrase' => $this->faker->realText(40),
+
+
+
         ];
     }
 }
