@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+
+use App\Models\Alcohol;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -20,7 +22,10 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        // use App\Models\Alcohol をやってるからこんなにシンプルにデータを取れる
+        $alcohols = Alcohol::get();
+
+        return view('auth.register', compact('alcohols'));
     }
 
     /**
@@ -33,22 +38,32 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        // ddd($request);
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'alcohol_id' => 'required',
+            'cups' => 'required',
+
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]);
+            'alcohol_id' => $request->alcohol_id,
+            'cups' => $request->cups,
 
+
+        ]);
+        // ddd($user);
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        // return redirect(RouteServiceProvider::HOME);
+        $alcohols = Alcohol::get();
+        return view('alcohol.input', compact('user', 'alcohols'));
     }
 }

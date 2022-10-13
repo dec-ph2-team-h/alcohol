@@ -50,6 +50,33 @@
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
+
+            <!-- user's favorite alcohol (プルダウン) -->
+            <div class="mt-4">
+                <div class="form-group">
+                    <!-- <label for="alcohol-id">{{ __('your favorite alcohol') }}<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label> -->
+                    <x-input-label for="alcohol_id" :value="__('Your Favorite Alcohol')" />
+                    <select class="block mt-1 w-full"  id="alcohol_id" name="alcohol_id">
+                        @foreach ($alcohols as $alcohol)
+                            <option value="{{ $alcohol->id }}">{{ $alcohol->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <!-- cups -->
+            <div class="mt-4">
+                <x-input-label for="cups" :value="__('the number of cups you can drink')" />
+
+                <x-text-input id="cups" class="block mt-1 w-full"
+                                type="number" min="1"
+                                name="cups" value="old('cups')"
+                                required />
+
+                <x-input-error :messages="$errors->get('cups')" class="mt-2" />
+            </div>
+
+
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
