@@ -7,12 +7,12 @@
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 bg-white border-b border-gray-200">
           
-
+          <form method="POST" action="{{ route('input') }}">
             @csrf
             <!--  基準のお酒プルダウン -->
             <div class="flex flex-col mb-4">
-                <label class="font-bold text-lg text-grey-darkest" for="alcohol-id">基準のお酒<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
-                <select class="form-conol" id="alcohol-id" name="alcohol_id">
+                <label class="font-bold text-lg text-grey-darkest" for="based_alcohol_id">基準のお酒<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
+                <select class="form-conol" id="based_alcohol_id" name="based_alcohol_id">
                     @foreach ($alcohols as $alcohol)
                         <option value="{{ $alcohol->id }}">{{ $alcohol->name }}</option>
                     @endforeach
@@ -20,14 +20,14 @@
             </div>
 
             <div class="flex flex-col mb-4">
-              <label class="font-bold text-lg text-grey-darkest" for="amount">杯<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
-              <input class="border py-2 px-3 text-grey-darkest" type="number" min="0" name="amount" id="amount">
+              <label class="font-bold text-lg text-grey-darkest" for="based_cups">杯<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
+              <input class="border py-2 px-3 text-grey-darkest" type="number" min="1" name="based_cups" id="based_cups">
             </div>
 
             <!--  変換するお酒プルダウン -->
             <div class="flex flex-col mb-4">
-                <label class="font-bold text-lg text-grey-darkest" for="alcohol-id">{{ __('変換するお酒') }}<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
-                <select class="form-control" id="alcohol-id" name="alcohol_id">
+                <label class="font-bold text-lg text-grey-darkest" for="target_alcohol_id">{{ __('変換するお酒') }}<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
+                <select class="form-control" id="target_alcohol_id" name="target_alcohol_id">
                     @foreach ($alcohols as $alcohol)
                         <option value="{{ $alcohol->id }}">{{ $alcohol->name }}</option>
                     @endforeach
