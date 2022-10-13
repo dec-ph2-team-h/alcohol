@@ -54,7 +54,8 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'alcohol_id' => $request->alcohol_id,
             'cups' => $request->cups,
-
+            'email_verified_at' => $request->email_verified_at,
+            'remember_token' => $request->remember_token,
 
         ]);
         // ddd($user);
