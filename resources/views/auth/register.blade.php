@@ -70,7 +70,8 @@
 
                 <x-text-input id="cups" class="block mt-1 w-full"
                                 type="number" min="1"
-                                name="cups" required />
+                                name="cups" value="old('cups')"
+                                required />
 
                 <x-input-error :messages="$errors->get('cups')" class="mt-2" />
             </div>
