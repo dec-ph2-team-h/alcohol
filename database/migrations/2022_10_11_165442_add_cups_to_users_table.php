@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -13,13 +14,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('alcohols', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('degree');
-            $table->integer('amount');
-            $table->text('phrase')->nullable();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            // 一行追加
+            $table->integer('cups')->after('alcohol_id')->nullable()->constrained()->cascadeOnDelete();
         });
     }
 
@@ -30,6 +27,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alcohols');
+        Schema::table('users', function (Blueprint $table) {
+            // 1行追加
+            $table->dropColumn(['cups']);
+        });
     }
 };
