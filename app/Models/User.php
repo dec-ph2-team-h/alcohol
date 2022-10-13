@@ -42,4 +42,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // alcohols tableに対して，多対１でリレーション（alcoholsが親usersが子）
+    // これで子のデータから親のデータを呼び出せる
+    public function alcohol()
+    {
+        return $this->belongsTo(Alcohol::class);
+    }
 }

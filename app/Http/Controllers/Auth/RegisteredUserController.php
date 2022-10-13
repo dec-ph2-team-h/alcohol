@@ -21,7 +21,8 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        $alcohols = [];
+        // use App\Models\Alcohol をやってるからこんなにシンプルにデータを取れる
+        $alcohols = Alcohol::get();
         return view('auth.register', compact('alcohols'));
     }
 
