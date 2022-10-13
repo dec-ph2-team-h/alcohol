@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Alcohol;
+use App\Http\Controllers\AlcoholController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,24 +14,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+// input.blade.phpからAlcoholControllerへ
+Route::post('/alcohol/input', [AlcoholController::class, 'store'])
+                ->name('input');
+
+//inputのルーティング
+// Route::get('/alcohol/input', function () {
+//     $alcohols = Alcohol::get();
+//     return view('alcohol.input',compact('alcohols'));
+// })->middleware(['auth', 'verified'])->name('input');
+
+//ouputのルーティング
+Route::post('/alcohol/output', function () {
+    return view('output');
+})->middleware(['auth', 'verified'])->name('output');
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
-
-//ouputのルーティング
-Route::get('/output', function () {
-    return view('output');
-})->middleware(['auth', 'verified'])->name('output');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-//inputのルーティング
-Route::get('/alcohol/input', function () {
-    $alcohols = [];
-    return view('alcohol.input',compact('alcohols'));
-})->middleware(['auth', 'verified'])->name('input');
+
 
 
 require __DIR__.'/auth.php';
