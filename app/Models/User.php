@@ -21,7 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'favorite_alcohol'
+        'alcohol_id',
+        'cups',
     ];
 
     /**

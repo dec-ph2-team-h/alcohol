@@ -23,6 +23,7 @@ class RegisteredUserController extends Controller
     {
         // use App\Models\Alcohol をやってるからこんなにシンプルにデータを取れる
         $alcohols = Alcohol::get();
+        
         return view('auth.register', compact('alcohols'));
     }
 
@@ -36,6 +37,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        // ddd($request);
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -53,6 +55,7 @@ class RegisteredUserController extends Controller
             'cups' => $request->cups,
 
         ]);
+        // ddd($user);
         event(new Registered($user));
 
         Auth::login($user);
