@@ -21,4 +21,11 @@ class Conversion extends Model
     {
         return $this->belongsTo(Alcohol::class);
     }
+
+    // conversions tabelに一番新しく追加されたデータだけをoutput画面に表示するために必要かもしれない？？
+    // やっぱいらんわ
+    public static function getAllOrderByUpdated_at()
+    {
+        return self::orderBy('updated_at', 'desc')->get();
+    }
 }

@@ -15,9 +15,14 @@ use App\Http\Controllers\AlcoholController;
 */
 
 
-// input.blade.phpからAlcoholControllerへ
-Route::post('/alcohol/input', [AlcoholController::class, 'store'])
+// ログインからinput画面に移動できるようにするときに
+// The GET method is not supported for this route. Supported methods: POSTってエラーが出たから追加
+// したけど解決できなかったからいったんおいとく
+Route::get('/alcohol/input', [AlcoholController::class, 'create'])
                 ->name('input');
+// input.blade.phpからAlcoholControllerへ
+Route::post('/alcohol/input', [AlcoholController::class, 'store']);
+                
 
 //inputのルーティング
 // Route::get('/alcohol/input', function () {

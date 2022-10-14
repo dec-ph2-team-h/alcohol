@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Conversion;
+use App\Models\Alcohol;
 
 class AlcoholController extends Controller
 {
@@ -24,7 +25,8 @@ class AlcoholController extends Controller
      */
     public function create()
     {
-        //
+        // これ使ってないかも
+        return view('alcohol.input');
     }
 
     /**
@@ -46,18 +48,27 @@ class AlcoholController extends Controller
 
         ]);
 
-        $conversion = Conversion::create([
+        $conversions = Conversion::create([
             // 'name' => $request->name,
             // 'email' => $request->email,
             // 'password' => Hash::make($request->password),
-            'based_alcohol_id' => $request->based_alcohol_id,
+            'based_alcohol_id' => $request->based_alcohol_id, //->alcohol->name,
             'based_cups' => $request->based_cups,
-            'target_alcohol_id' => $request->target_alcohol_id,
+            'target_alcohol_id' => $request->target_alcohol_id, //->alcohol->name,
             // 'remember_token' => $request->remember_token,
 
         ]);
-        //  ddd($conversion);
-         return view('alcohol.output', compact('conversion'));
+        $conversion_id = Conversion::orderBy('updated_at', 'desc')->first();
+        // ddd($conversion);
+        $conversion_name = [
+            'based_alcohol_name' => Alcohol::find($conversion_id->based_alcohol_id)->name,
+            'based_cups' => $conversion_id->based_cups,
+            'target_alcohol_name' => Alcohol::find($conversion_id->target_alcohol_id)->name,
+        ];  
+        // ddd($conversion_name);
+        // bladeで 変数$conversion_nameの中のデータを取り出すときはアローではなく，`$conversion_name['based_alcohol_id']`みたいにやる
+        // $conversion_nameはテーブルではなくて配列だから？？
+        return view('alcohol.output', compact('conversion_name'));
 
     }
 

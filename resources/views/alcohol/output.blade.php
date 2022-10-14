@@ -5,14 +5,42 @@
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 bg-white border-b border-gray-200">
             <div class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">
-                <!-- foreach($alcohols as $alcohol) -->
-                <!-- {alcohol->name}↓ -->
-                <h2>の</h2> <br>
-                <!-- 入力結果 -->
-                <h2>杯は</h2><br>
-                <!-- 計算結果↓ -->
-                <h2>杯分です</h2><br>
-                <!-- endforeach -->
+                <table class="text-center w-full border-collapse">
+                  <thead>
+                    <tr>
+                      <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">お酒を変換したよん</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{-- @foreach ($tweets as $tweet) --}}
+                    <tr class="hover:bg-grey-lighter">
+                      <td class="py-4 px-6 border-b border-grey-light">
+                        <h3 class="text-left font-bold text-lg text-grey-dark">{{$conversion_name['based_alcohol_name']}}の</h3>
+                        <div class="flex">
+                          <!-- 更新ボタン -->
+                          <!-- 削除ボタン -->
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-grey-lighter">
+                      <td class="py-4 px-6 border-b border-grey-light">
+                        <h3 class="text-left font-bold text-lg text-grey-dark">{{$conversion_name['based_cups']}}杯は</h3>
+                        <div class="flex">
+
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-grey-lighter">
+                      <td class="py-4 px-6 border-b border-grey-light">
+                        <h3 class="text-left font-bold text-lg text-grey-dark">{{$conversion_name['target_alcohol_name']}}を杯分です</h3>
+                        <div class="flex">
+
+                        </div>
+                      </td>
+                    </tr>
+                    {{-- @endforeach --}}
+                  </tbody>
+                </table>
             </div>
             <div class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">
                 <!-- foreach($alcohols as $value)

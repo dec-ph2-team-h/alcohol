@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Alcohol;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -32,7 +33,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $alcohols = Alcohol::get();
+        return redirect()->intended(RouteServiceProvider::HOME); //->with(compact('alcohols'));
+        
+        // return redirect('alcohol/input');
+        // return view('alcohol.input', compact('user', 'alcohols'));
     }
 
     /**
