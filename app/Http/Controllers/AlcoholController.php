@@ -26,7 +26,8 @@ class AlcoholController extends Controller
     public function create()
     {
         // これ使ってないかも
-        return view('alcohol.input');
+        $alcohols = Alcohol::get();
+        return view('alcohol.input', compact('alcohols'));
     }
 
     /**
