@@ -81,10 +81,11 @@ class AlcoholController extends Controller
         $target_cups = $based_alcohol_info['based_alcohol_amount'] * $based_alcohol_info['based_alcohol_degree'] * $based_alcohol_info['based_cups'] / ( $target_alcohol_info['target_alcohol_amount'] * $target_alcohol_info['target_alcohol_degree'] );
         $target_cups = round($target_cups, 1);
 
+        $based_alcohol_phrase = Alcohol::find($conversion->based_alcohol_id)->phrase;
         // ddd($conversion_name);
         // bladeで 変数$conversion_nameの中のデータを取り出すときはアローではなく，`$conversion_name['based_alcohol_id']`みたいにやる
         // $conversion_nameはテーブルではなくて配列だから？？
-        return view('alcohol.output', compact('conversion_name', 'target_cups'));
+        return view('alcohol.output', compact('conversion_name', 'target_cups', 'based_alcohol_phrase'));
 
     }
 
