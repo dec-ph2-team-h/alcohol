@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Conversion;
+use App\Models\Alcohol;
 
 class AlcoholController extends Controller
 {
@@ -24,7 +25,8 @@ class AlcoholController extends Controller
      */
     public function create()
     {
-        //
+        // これ使ってないかも
+        return view('alcohol.input');
     }
 
     /**
@@ -46,18 +48,42 @@ class AlcoholController extends Controller
 
         ]);
 
-        $conversion = Conversion::create([
+        $conversions = Conversion::create([
             // 'name' => $request->name,
             // 'email' => $request->email,
             // 'password' => Hash::make($request->password),
-            'based_alcohol_id' => $request->based_alcohol_id,
+            'based_alcohol_id' => $request->based_alcohol_id, //->alcohol->name,
             'based_cups' => $request->based_cups,
-            'target_alcohol_id' => $request->target_alcohol_id,
+            'target_alcohol_id' => $request->target_alcohol_id, //->alcohol->name,
             // 'remember_token' => $request->remember_token,
 
         ]);
-        //  ddd($conversion);
-         return view('alcohol.output', compact('conversion'));
+        $conversion = Conversion::orderBy('updated_at', 'desc')->first();
+        // ddd($conversion);
+        $conversion_name = [
+            'based_alcohol_name' => Alcohol::find($conversion->based_alcohol_id)->name,
+            'based_cups' => $conversion->based_cups,
+            'target_alcohol_name' => Alcohol::find($conversion->target_alcohol_id)->name,
+        ];  
+
+        $based_alcohol_info = [
+            'based_alcohol_amount' => Alcohol::find($conversion->based_alcohol_id)->amount,
+            'based_alcohol_degree' => Alcohol::find($conversion->based_alcohol_id)->degree,
+            'based_cups' => $conversion->based_cups,
+        ];
+
+        $target_alcohol_info = [
+            'target_alcohol_amount' => Alcohol::find($conversion->target_alcohol_id)->amount,
+            'target_alcohol_degree' => Alcohol::find($conversion->target_alcohol_id)->degree,
+        ];
+
+        $target_cups = $based_alcohol_info['based_alcohol_amount'] * $based_alcohol_info['based_alcohol_degree'] * $based_alcohol_info['based_cups'] / ( $target_alcohol_info['target_alcohol_amount'] * $target_alcohol_info['target_alcohol_degree'] );
+        $target_cups = round($target_cups, 1);
+
+        // ddd($conversion_name);
+        // bladeで 変数$conversion_nameの中のデータを取り出すときはアローではなく，`$conversion_name['based_alcohol_id']`みたいにやる
+        // $conversion_nameはテーブルではなくて配列だから？？
+        return view('alcohol.output', compact('conversion_name', 'target_cups'));
 
     }
 
