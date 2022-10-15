@@ -23,7 +23,7 @@ class Conversion extends Model
     }
 
     // conversions tabelに一番新しく追加されたデータだけをoutput画面に表示するために必要かもしれない？？
-    // やっぱいらんわ
+    // やっぱいらんわ+
     public static function getAllOrderByUpdated_at()
     {
         return self::orderBy('updated_at', 'desc')->get();
