@@ -32,7 +32,7 @@
                     </tr>
                     <tr class="hover:bg-grey-lighter">
                       <td class="py-4 px-6 border-b border-grey-light">
-                        <h3 class="text-left font-bold text-lg text-grey-dark">{{$conversion_name['target_alcohol_name']}}を杯分です</h3>
+                        <h3 class="text-left font-bold text-lg text-grey-dark">{{$conversion_name['target_alcohol_name']}}を{{$target_cups}}杯分です</h3>
                         <div class="flex">
 
                         </div>

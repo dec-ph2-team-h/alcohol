@@ -34,10 +34,10 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $alcohols = Alcohol::get();
-        return redirect()->intended(RouteServiceProvider::HOME); //->with(compact('alcohols'));
+        // ddd($request);
+        // return redirect()->intended(RouteServiceProvider::HOME)->with(compact('alcohols'));
         
-        // return redirect('alcohol/input');
-        // return view('alcohol.input', compact('user', 'alcohols'));
+        return view('alcohol.input', compact('request', 'alcohols'));
     }
 
     /**

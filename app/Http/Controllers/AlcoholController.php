@@ -58,17 +58,32 @@ class AlcoholController extends Controller
             // 'remember_token' => $request->remember_token,
 
         ]);
-        $conversion_id = Conversion::orderBy('updated_at', 'desc')->first();
+        $conversion = Conversion::orderBy('updated_at', 'desc')->first();
         // ddd($conversion);
         $conversion_name = [
-            'based_alcohol_name' => Alcohol::find($conversion_id->based_alcohol_id)->name,
-            'based_cups' => $conversion_id->based_cups,
-            'target_alcohol_name' => Alcohol::find($conversion_id->target_alcohol_id)->name,
+            'based_alcohol_name' => Alcohol::find($conversion->based_alcohol_id)->name,
+            'based_cups' => $conversion->based_cups,
+            'target_alcohol_name' => Alcohol::find($conversion->target_alcohol_id)->name,
         ];  
+
+        $based_alcohol_info = [
+            'based_alcohol_amount' => Alcohol::find($conversion->based_alcohol_id)->amount,
+            'based_alcohol_degree' => Alcohol::find($conversion->based_alcohol_id)->degree,
+            'based_cups' => $conversion->based_cups,
+        ];
+
+        $target_alcohol_info = [
+            'target_alcohol_amount' => Alcohol::find($conversion->target_alcohol_id)->amount,
+            'target_alcohol_degree' => Alcohol::find($conversion->target_alcohol_id)->degree,
+        ];
+
+        $target_cups = $based_alcohol_info['based_alcohol_amount'] * $based_alcohol_info['based_alcohol_degree'] * $based_alcohol_info['based_cups'] / ( $target_alcohol_info['target_alcohol_amount'] * $target_alcohol_info['target_alcohol_degree'] );
+        $target_cups = round($target_cups, 1);
+
         // ddd($conversion_name);
         // bladeで 変数$conversion_nameの中のデータを取り出すときはアローではなく，`$conversion_name['based_alcohol_id']`みたいにやる
         // $conversion_nameはテーブルではなくて配列だから？？
-        return view('alcohol.output', compact('conversion_name'));
+        return view('alcohol.output', compact('conversion_name', 'target_cups'));
 
     }
 
