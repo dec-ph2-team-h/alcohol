@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         // 1行追加
         $this->call([AlcoholsSeeder::class]);
         
-        \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(5)->create();
         
 
 
