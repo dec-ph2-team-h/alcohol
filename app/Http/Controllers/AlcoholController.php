@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Conversion;
 use App\Models\Alcohol;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AlcoholController extends Controller
 {
@@ -85,7 +88,23 @@ class AlcoholController extends Controller
         // ddd($conversion_name);
         // bladeで 変数$conversion_nameの中のデータを取り出すときはアローではなく，`$conversion_name['based_alcohol_id']`みたいにやる
         // $conversion_nameはテーブルではなくて配列だから？？
-        return view('alcohol.output', compact('conversion_name', 'target_cups', 'based_alcohol_phrase'));
+
+
+
+        // 許容量に対する飲んだ量の割合を計算する
+        $based_for_tolerance_ratio = DB::table('conversions as c')
+        ->join('alcohols as a', 'c.based_alcohol_id', '=', 'a.id')
+        ->orderBy('c.updated_at', 'desc')
+        ->select(DB::raw('a.amount * a.degree / 100.0 * c.based_cups as result'))
+        ->first()
+        ->result;
+
+        $tolerance = User::find(Auth::id())->tolerance;
+        // ごめんphpで計算しちゃった
+        $tolerance_ratio = $based_for_tolerance_ratio / $tolerance * 100.0;
+        // ddd($tolerance_ratio);
+
+        return view('alcohol.output', compact('conversion_name', 'target_cups', 'based_alcohol_phrase', 'tolerance_ratio'));
 
     }
 
