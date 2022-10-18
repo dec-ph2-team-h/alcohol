@@ -46,9 +46,11 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'alcohol_id' => 'required',
             'cups' => 'required',
+
             // 'tolerance' => 'required',
             // 'email_verified_at' => 'required',
             // 'remember_token' => 'required',
+
 
         ]);
         // ddd($request);
