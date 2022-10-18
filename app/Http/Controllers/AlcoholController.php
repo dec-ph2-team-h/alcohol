@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Conversion;
 use App\Models\Alcohol;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+//SQL計算用
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Query\JoinClause;
 
 class AlcoholController extends Controller
 {
@@ -67,24 +73,72 @@ class AlcoholController extends Controller
             'target_alcohol_name' => Alcohol::find($conversion->target_alcohol_id)->name,
         ];  
 
-        $based_alcohol_info = [
-            'based_alcohol_amount' => Alcohol::find($conversion->based_alcohol_id)->amount,
-            'based_alcohol_degree' => Alcohol::find($conversion->based_alcohol_id)->degree,
-            'based_cups' => $conversion->based_cups,
-        ];
+        // $based_alcohol_info = [
+        //     'based_alcohol_amount' => Alcohol::find($conversion->based_alcohol_id)->amount,
+        //     'based_alcohol_degree' => Alcohol::find($conversion->based_alcohol_id)->degree,
+        //     'based_cups' => $conversion->based_cups,
+        // ];
 
-        $target_alcohol_info = [
-            'target_alcohol_amount' => Alcohol::find($conversion->target_alcohol_id)->amount,
-            'target_alcohol_degree' => Alcohol::find($conversion->target_alcohol_id)->degree,
-        ];
+        // $target_alcohol_info = [
+        //     'target_alcohol_amount' => Alcohol::find($conversion->target_alcohol_id)->amount,
+        //     'target_alcohol_degree' => Alcohol::find($conversion->target_alcohol_id)->degree,
+        // ];
 
-        $target_cups = $based_alcohol_info['based_alcohol_amount'] * $based_alcohol_info['based_alcohol_degree'] * $based_alcohol_info['based_cups'] / ( $target_alcohol_info['target_alcohol_amount'] * $target_alcohol_info['target_alcohol_degree'] );
-        $target_cups = round($target_cups, 1);
+        //phpで計算した結果を変数に入れる
+        // $target_cups = $based_alcohol_info['based_alcohol_amount'] * $based_alcohol_info['based_alcohol_degree'] * $based_alcohol_info['based_cups'] / ( $target_alcohol_info['target_alcohol_amount'] * $target_alcohol_info['target_alcohol_degree'] );
+        // $target_cups = round($target_cups, 1);
 
+        //計算した結果をconversionsテーブルのtarget_cupsカラムに挿入(下記に記述)
+        $based_calculation = DB::table('alcohols')
+            ->join('conversions', function ($join){
+				$join->on('alcohols.id', '=', 'conversions.based_alcohol_id');})
+            ->orderBy(DB::raw('conversions.updated_at'), 'desc')
+            ->take(1)
+            //->where(DB::raw(conversions.id), )
+            // ->select(DB::raw('alcohols.amount') * DB::raw('alcohols.degree') * DB::raw('conversions.based_cups'))
+            ->select(DB::raw('alcohols.amount * alcohols.degree * conversions.based_cups as Bc'))
+            ->get();
+
+        //$based_calculation = $based_calculation[0];
+
+
+        //ddd($based_calculation);
+
+        $target_calculation = DB::table('alcohols')
+            ->join('conversions', function ($join){
+				$join->on('alcohols.id', '=', 'conversions.target_alcohol_id');})
+            ->orderBy(DB::raw('conversions.updated_at'), 'desc')
+            ->take(1)
+            ->select(DB::raw('alcohols.amount * alcohols.degree as Tc'))
+            ->get();
+        //ddd($target_calculation);
+
+        $target_cups = round(($based_calculation[0]->Bc 
+            / $target_calculation[0]->Tc), 1);
+
+        //ddd($target_cups);
+
+        $based_alcohol_phrase = Alcohol::find($conversion->based_alcohol_id)->phrase;
         // ddd($conversion_name);
         // bladeで 変数$conversion_nameの中のデータを取り出すときはアローではなく，`$conversion_name['based_alcohol_id']`みたいにやる
         // $conversion_nameはテーブルではなくて配列だから？？
-        return view('alcohol.output', compact('conversion_name', 'target_cups'));
+
+
+
+        // 許容量に対する飲んだ量の割合を計算する
+        $based_for_tolerance_ratio = DB::table('conversions as c')
+        ->join('alcohols as a', 'c.based_alcohol_id', '=', 'a.id')
+        ->orderBy('c.updated_at', 'desc')
+        ->select(DB::raw('a.amount * a.degree / 100.0 * c.based_cups as result'))
+        ->first()
+        ->result;
+
+        $tolerance = User::find(Auth::id())->tolerance;
+        // ごめんphpで計算しちゃった
+        $tolerance_ratio = $based_for_tolerance_ratio / $tolerance * 100.0;
+        // ddd($tolerance_ratio);
+
+        return view('alcohol.output', compact('conversion_name', 'target_cups', 'based_alcohol_phrase', 'tolerance_ratio'));
 
     }
 
