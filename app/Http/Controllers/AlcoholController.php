@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Conversion;
 use App\Models\Alcohol;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 //SQL計算用
@@ -74,16 +73,16 @@ class AlcoholController extends Controller
             'target_alcohol_name' => Alcohol::find($conversion->target_alcohol_id)->name,
         ];  
 
-        $based_alcohol_info = [
-            'based_alcohol_amount' => Alcohol::find($conversion->based_alcohol_id)->amount,
-            'based_alcohol_degree' => Alcohol::find($conversion->based_alcohol_id)->degree,
-            'based_cups' => $conversion->based_cups,
-        ];
+        // $based_alcohol_info = [
+        //     'based_alcohol_amount' => Alcohol::find($conversion->based_alcohol_id)->amount,
+        //     'based_alcohol_degree' => Alcohol::find($conversion->based_alcohol_id)->degree,
+        //     'based_cups' => $conversion->based_cups,
+        // ];
 
-        $target_alcohol_info = [
-            'target_alcohol_amount' => Alcohol::find($conversion->target_alcohol_id)->amount,
-            'target_alcohol_degree' => Alcohol::find($conversion->target_alcohol_id)->degree,
-        ];
+        // $target_alcohol_info = [
+        //     'target_alcohol_amount' => Alcohol::find($conversion->target_alcohol_id)->amount,
+        //     'target_alcohol_degree' => Alcohol::find($conversion->target_alcohol_id)->degree,
+        // ];
 
         //phpで計算した結果を変数に入れる
         // $target_cups = $based_alcohol_info['based_alcohol_amount'] * $based_alcohol_info['based_alcohol_degree'] * $based_alcohol_info['based_cups'] / ( $target_alcohol_info['target_alcohol_amount'] * $target_alcohol_info['target_alcohol_degree'] );
