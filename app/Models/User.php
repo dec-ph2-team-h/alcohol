@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'alcohol_id',
         'cups',
+        // 'tolerance',
     ];
 
     /**
@@ -33,6 +34,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'tolerance',
     ];
 
     /**

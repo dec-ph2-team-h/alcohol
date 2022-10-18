@@ -42,6 +42,12 @@
                   </tbody>
                 </table>
             </div>
+            {{-- 許容量バー --}}
+            <div class="progress">
+              {{-- <div class="progress-bar" style="width:25%" role="progressbar" aria-valuenow="25" aria-valuemin"0" aria-valuemax="100">25%</div> --}}
+              <progress value={{$tolerance_ratio}} max='100'></progress>
+            </div>
+
             <div class="py-4 px-6 bg-grey-lightest uppercase text-lg text-grey-dark border-b border-grey-light">
                 <!-- foreach($alcohols as $value)
                 <ul>
