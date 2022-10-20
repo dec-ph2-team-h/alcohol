@@ -13,9 +13,10 @@ class TwitterController extends Controller
         //homeのtimelineから？ツイートを5件取得
         // $result = \Twitter::get('statuses/home_timeline', array("count" => 5));
         $result = \Twitter::get('search/tweets', [
-            'q' => 'チェンソーマン',
+            'q' => '飲み会',
             'count' => 5,
         ]);
+        // ddd($result);
         $d = $result->statuses;
         // ddd($d);
 
