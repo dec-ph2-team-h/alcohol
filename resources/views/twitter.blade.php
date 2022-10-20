@@ -1,3 +1,3 @@
-@foreach ($twitter as $twitter)                
+@foreach ($d as $twitter)                
   {{ $twitter->text }}<br>                
 @endforeach

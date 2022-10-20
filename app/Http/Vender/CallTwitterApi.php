@@ -12,11 +12,14 @@ class callTwitterApi
     
     public function __construct()
     {
+        $config = config('twitter');
         $this->t = new TwitterOAuth(
-            env('TWITTER_CLIENT_KEY'),
-            env('TWITTER_CLIENT_SECRET'),
-            env('TWITTER_CLIENT_ID_ACCESS_TOKEN'),
-            env('TWITTER_CLIENT_ID_ACCESS_TOKEN_SECRET'));
+            $config['api_key'],
+            $config['secret_key'],
+            $config['access_token'],
+            $config['access_token_secret'],
+        );
+        //ddd($this);
     }
     
     // ツイート検索

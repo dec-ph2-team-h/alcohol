@@ -11,8 +11,9 @@ class TwitterController extends Controller
     public function index()
     {
         $t = new CallTwitterApi();
-        $d = $t->searchTweets("検索ワード");
+        $d = $t->searchTweets("チェンソーマン");
         // return view('twitter', ['twitter' => $d]);
+        //ddd($d);
         return view('twitter' ,compact('d'));
     }
 }
