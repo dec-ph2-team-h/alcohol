@@ -25,3 +25,18 @@ class TwitterController extends Controller
         return view('alcohol.twitter', compact('d'));
     }
 }
+//=======としきのやつ
+//use App\Http\Vender\CallTwitterApi;
+
+//class TwitterController extends Controller
+//{
+//    // 投稿
+//    public function index()
+//    {
+//        $t = new CallTwitterApi();
+//        $d = $t->searchTweets("チェンソーマン");
+//        // return view('twitter', ['twitter' => $d]);
+//        //ddd($d);
+//        return view('twitter' ,compact('d'));
+//    }
+//}
