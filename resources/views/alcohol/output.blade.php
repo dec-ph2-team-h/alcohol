@@ -44,8 +44,22 @@
             </div>
             {{-- 許容量バー --}}
             <div class="progress">
-              {{-- <div class="progress-bar" style="width:25%" role="progressbar" aria-valuenow="25" aria-valuemin"0" aria-valuemax="100">25%</div> --}}
-              <progress value={{$tolerance_ratio}} max='100'></progress>
+              <h3 class="text-center text-lg text-grey-dark">{{$conversion_name['based_alcohol_name']}}{{$conversion_name['based_cups']}}杯は許容量の{{$tolerance_ratio}}％です</h3>
+              <div class="progress_bar flex justify-center">
+                <style>
+                  progress {
+                    -webkit-appearance: none;
+                  }
+                  ::-webkit-progress-bar {
+                    background-color: gray;
+                  }
+                  ::-webkit-progress-value {
+                    background-color: yellow;
+                  }
+                </style>
+
+                <progress value={{$tolerance_ratio}} max='100'></progress>
+              </div>
             </div>
 
             <div class="py-4 px-6 bg-grey-lightest uppercase text-lg text-grey-dark border-b border-grey-light">
