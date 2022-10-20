@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Alcohol;
 use App\Http\Controllers\AlcoholController;
+use App\Http\Controllers\TwitterContoroller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +19,9 @@ use App\Http\Controllers\AlcoholController;
 // ログインからinput画面に移動できるようにするときに
 // The GET method is not supported for this route. Supported methods: POSTってエラーが出たから追加
 // したけど解決できなかったからいったんおいとく
+
+Route::get('/twitter', [TwitterController::class, 'index']);
+
 Route::get('/alcohol/input', [AlcoholController::class, 'create'])
                 ->name('input');
 // input.blade.phpからAlcoholControllerへ
@@ -49,3 +53,5 @@ Route::get('/dashboard', function () {
 
 
 require __DIR__.'/auth.php';
+
+
