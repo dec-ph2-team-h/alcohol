@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Alcohol;
 use App\Http\Controllers\AlcoholController;
+use App\Http\Controllers\TwitterController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +16,11 @@ use App\Http\Controllers\AlcoholController;
 |
 */
 
+
+
+// TwitterAPI実装のとりあえずの確認用の画面を表示するためのルーティング
+// Route::get('/alcohol/twitter', 'App\Http\Controllers\TwitterController@index');
+Route::get('/alcohol/twitter', [TwitterController::class, 'index']);
 
 // ログインからinput画面に移動できるようにするときに
 // The GET method is not supported for this route. Supported methods: POSTってエラーが出たから追加
@@ -30,7 +37,7 @@ Route::post('/alcohol/input', [AlcoholController::class, 'store']);
 //     return view('alcohol.input',compact('alcohols'));
 // })->middleware(['auth', 'verified'])->name('input');
 
-//ouputのルーティング
+//ouputのルーティング (これ使ってなさそう)
 Route::post('/alcohol/output', function () {
     return view('output');
 })->middleware(['auth', 'verified'])->name('output');
