@@ -8,7 +8,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 
 class TwitterController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         //homeのtimelineから？ツイートを5件取得
         // $result = \Twitter::get('statuses/home_timeline', array("count" => 5));
@@ -20,9 +20,9 @@ class TwitterController extends Controller
         $d = $result->statuses;
         // ddd($d);
 
-
+        return $d;
         //ViewのTwitter.blade.phpに渡す
-        return view('alcohol.twitter', compact('d'));
+        //return view('alcohol.twitter', compact('d'));
     }
 }
 //=======としきのやつ
