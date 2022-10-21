@@ -142,7 +142,8 @@ class AlcoholController extends Controller
         
         //Twitterの検索したものを持ってくる
         $tw = new TwitterController();
-        $tweets = $tw->index();
+        $name = $conversion_name['based_alcohol_name'];
+        $tweets = $tw->index($name);
         ///ddd($tweets);
 
         return view('alcohol.output', compact('conversion_name', 'target_cups', 'based_alcohol_phrase', 'tolerance_ratio', 'tweets'));
