@@ -41,9 +41,9 @@ Route::post('/alcohol/input', [AlcoholController::class, 'store']);
 // })->middleware(['auth', 'verified'])->name('input');
 
 //ouputのルーティング (これ使ってなさそう)
-Route::post('/alcohol/output', function () {
-    return view('output');
-})->middleware(['auth', 'verified'])->name('output');
+// Route::post('/alcohol/output', function () {
+//     return view('output');
+// })->middleware(['auth', 'verified'])->name('output');
 
 
 

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>This is Alcohol</title>
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,10 +21,31 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+
+        {{-- <div class="relative flex">
+            <div class="columns-2 md:columns-3 lg:columns-4">
+                <img class="mb-4" src="https://source.unsplash.com/random/1">
+                <img class="mb-4" src="https://source.unsplash.com/random/2">
+                <img class="mb-4" src="https://source.unsplash.com/random/3">
+                <img class="mb-4" src="https://source.unsplash.com/random/4">
+                <img class="mb-4" src="https://source.unsplash.com/random/5">
+                <img class="mb-4" src="https://source.unsplash.com/random/6">
+                <img class="mb-4" src="https://source.unsplash.com/random/7">
+            </div>
+        </div> --}}
+
+        
+
+        
+
+        <div class="relative flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+            {{-- <div class="w-1/4 h-1/4 m-4 py-4"> --}}
+            <div>
+                <img src="{{ asset('figures/alcohol_icon.png') }}" >
+            </div>
             @if (Route::has('login'))
 
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                <div class="hidden fixed top-0 right-10 px-6 py-4 sm:block">
                     <!-- <a href="{{ route('input')}}" class="text-sm text-gray-700 dark:text-gray-500 underline">Guest</a> -->
                     @auth
                         <a href="{{ route('login') }}" class="text-xl text-gray-700 dark:text-gray-500 underline">let's drink alcohol</a>
@@ -36,8 +57,9 @@
                         @endif
                     @endauth
                 </div>
+                
             @endif
-
+            
             <!-- <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
                     <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
