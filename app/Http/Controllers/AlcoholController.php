@@ -133,7 +133,7 @@ class AlcoholController extends Controller
         // ddd($tolerance_ratio);
         
         //Twitterの検索したものを持ってくる
-        $tw = new TwitterController();
+        $tw = new TwitterController(); // new でインスタンス作成
         $name = $conversion_name['based_alcohol_name'];
         $tweets = $tw->index($name);
         ///ddd($tweets);
