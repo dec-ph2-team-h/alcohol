@@ -12,8 +12,8 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('input')" :active="request()->routeIs('input')">
+                        {{ __('input') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -28,9 +28,9 @@
                                     {{ Auth::user()->name }}
                                 @endauth
 
-                                @guest
+                                <!-- @guest
                                     {{('guest')}}
-                                @endguest
+                                @endguest -->
                             </div>
 
                             <div class="ml-1">

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\JoinClause;
 
+use App\Http\Controllers\TwitterController;
+
 class AlcoholController extends Controller
 {
     /**
@@ -135,10 +137,16 @@ class AlcoholController extends Controller
 
         $tolerance = User::find(Auth::id())->tolerance;
         // ごめんphpで計算しちゃった
-        $tolerance_ratio = $based_for_tolerance_ratio / $tolerance * 100.0;
+        $tolerance_ratio = round($based_for_tolerance_ratio / $tolerance * 100.0, 1);
         // ddd($tolerance_ratio);
+        
+        //Twitterの検索したものを持ってくる
+        $tw = new TwitterController();
+        $name = $conversion_name['based_alcohol_name'];
+        $tweets = $tw->index($name);
+        ///ddd($tweets);
 
-        return view('alcohol.output', compact('conversion_name', 'target_cups', 'based_alcohol_phrase', 'tolerance_ratio'));
+        return view('alcohol.output', compact('conversion_name', 'target_cups', 'based_alcohol_phrase', 'tolerance_ratio', 'tweets'));
 
     }
 
