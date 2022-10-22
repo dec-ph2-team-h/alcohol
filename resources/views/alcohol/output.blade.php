@@ -94,13 +94,11 @@
                 <table class="text-center w-full border-collapse">
                   <div class="tweets">
                     <h3 class="text-center font-bold text-lg text-grey-dark">最近{{$conversion_name['based_alcohol_name']}}を飲んだ人のツイート</h3>
-                    @foreach ($tweets as $twitter)
+                    @foreach ($tweets as $tweet)
                     <tr class="hover:bg-grey-lighter">
                     <td class="py-4 px-6 border-b border-grey-light">
-                      <h3 class="text-left font-bold text-lg text-grey-dark">{{$twitter->text}}</h3>
+                      <h3 class="text-left font-bold text-lg text-grey-dark">{{$tweet->text}}</h3>
                       <div class="flex">
-                      <!-- 更新ボタン -->
-                      <!-- 削除ボタン -->
                       </div>
                     </td>
                     </tr>
