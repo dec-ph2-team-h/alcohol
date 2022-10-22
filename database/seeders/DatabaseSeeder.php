@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+
         // 1行追加
         $this->call([AlcoholsSeeder::class]);
         
@@ -26,6 +27,5 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        //$this->call([AlcoholsSeeder::class]);
     }
 }

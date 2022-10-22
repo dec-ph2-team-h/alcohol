@@ -19,7 +19,9 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+
             'alcohol_id' => fake()->numberBetween(1, 10), // Alcohols tableのidに実際に存在するやつにすることに注意
+
             'cups' => fake()->numberBetween(1,20),
             'tolerance' => fake()->numberBetween(1,100),
             'email' => fake()->unique()->safeEmail(),

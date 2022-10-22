@@ -195,6 +195,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // TwitterOAuth
+        App\Providers\TwitterServiceProvider::class,
+
     ],
 
     /*
@@ -210,6 +213,13 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        // TwitterOAuthAliases
+        'Twitter' => App\Facades\Twitter::class,
     ])->toArray(),
+    // 'aliases' => [
+    //     // TwitterOAuthAliases
+    //     'Twitter' => App\Facades\Twitter::class,
+    // ],
 
+    
 ];
