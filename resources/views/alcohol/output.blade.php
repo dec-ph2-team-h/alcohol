@@ -87,25 +87,29 @@
                         </div>
                       </td>
                     </tr>
-                    
-                    <!-- twitterの検索表示 -->
+                  </tbody>
+                </table>
+
+                <!-- twitterの検索表示 -->
+                <table class="text-center w-full border-collapse">
+                  <div class="tweets">
+                    <h3 class="text-center font-bold text-lg text-grey-dark">最近{{$conversion_name['based_alcohol_name']}}を飲んだ人のツイート</h3>
                     @foreach ($tweets as $twitter)
                     <tr class="hover:bg-grey-lighter">
                     <td class="py-4 px-6 border-b border-grey-light">
-                        <h3 class="text-left font-bold text-lg text-grey-dark">{{$twitter->text}}</h3>
-                        <div class="flex">
-                        <!-- 更新ボタン -->
-                        <!-- 削除ボタン -->
-                        </div>
+                      <h3 class="text-left font-bold text-lg text-grey-dark">{{$twitter->text}}</h3>
+                      <div class="flex">
+                      <!-- 更新ボタン -->
+                      <!-- 削除ボタン -->
+                      </div>
                     </td>
                     </tr>
                     @endforeach
-
-                  </tbody>
+                  </div>
                 </table>
             </div>
 
-            </div>
+          </div>
         </div>
       </div>
     </div>
