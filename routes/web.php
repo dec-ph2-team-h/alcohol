@@ -29,7 +29,7 @@ Route::get('/alcohol/twitter', [TwitterController::class, 'index']);
 Route::get('twitter', 'App\Http\Controllers\TwitterController@index');
 
 Route::get('/alcohol/input', [AlcoholController::class, 'create'])
-                ->name('input');
+    ->middleware(['auth', 'verified'])->name('input');
 // input.blade.phpからAlcoholControllerへ
 Route::post('/alcohol/input', [AlcoholController::class, 'store']);
                 
