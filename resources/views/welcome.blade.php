@@ -23,8 +23,9 @@
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
-                <div class="hidden fixed top-150 right-150 px-6 py-4 sm:block">
-                    <a href="{{ route('input')}}" class="text-sm text-gray-700 dark:text-gray-500 my-2 px-4 py-2 border-2 border-blue-500">Guest</a>
+
+                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    <!-- <a href="{{ route('input')}}" class="text-sm text-gray-700 dark:text-gray-500 underline">Guest</a> -->
                     @auth
                         <a href="{{ route('login') }}" class="text-xl text-gray-700 dark:text-gray-500 underline">let's drink alcohol</a>
                     @else
