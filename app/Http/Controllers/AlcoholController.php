@@ -96,14 +96,8 @@ class AlcoholController extends Controller
 				$join->on('alcohols.id', '=', 'conversions.based_alcohol_id');})
             ->orderBy(DB::raw('conversions.updated_at'), 'desc')
             ->take(1)
-            //->where(DB::raw(conversions.id), )
-            // ->select(DB::raw('alcohols.amount') * DB::raw('alcohols.degree') * DB::raw('conversions.based_cups'))
             ->select(DB::raw('alcohols.amount * alcohols.degree * conversions.based_cups as Bc'))
             ->get();
-
-        //$based_calculation = $based_calculation[0];
-
-
         //ddd($based_calculation);
 
         $target_calculation = DB::table('alcohols')
@@ -115,9 +109,7 @@ class AlcoholController extends Controller
             ->get();
         //ddd($target_calculation);
 
-        $target_cups = round(($based_calculation[0]->Bc 
-            / $target_calculation[0]->Tc), 1);
-
+        $target_cups = round(($based_calculation[0]->Bc / $target_calculation[0]->Tc), 1);
         //ddd($target_cups);
 
         $based_alcohol_phrase = Alcohol::find($conversion->based_alcohol_id)->phrase;
