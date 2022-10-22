@@ -91,20 +91,18 @@
                 </table>
 
                 <!-- twitterの検索表示 -->
-                <table class="text-center w-full border-collapse">
-                  <div class="tweets">
+                {{-- <table class="w-full border-collapse"> --}}
+                  {{-- <div class="tweets"> --}}
                     <h3 class="text-center font-bold text-lg text-grey-dark">最近{{$conversion_name['based_alcohol_name']}}を飲んだ人のツイート</h3>
                     @foreach ($tweets as $tweet)
-                    <tr class="hover:bg-grey-lighter">
-                    <td class="py-4 px-6 border-b border-grey-light">
-                      <h3 class="text-left font-bold text-lg text-grey-dark">{{$tweet->text}}</h3>
-                      <div class="flex">
-                      </div>
-                    </td>
-                    </tr>
+                    <ul class="list-disc">
+                      <li class="text-left text-lg text-grey-dark">{{$tweet->text}}</li><br>
+                      {{-- <div class="flex">
+                      </div> --}}
+                    </ul>
                     @endforeach
-                  </div>
-                </table>
+                  {{-- </div> --}}
+                {{-- </table> --}}
             </div>
 
           </div>
