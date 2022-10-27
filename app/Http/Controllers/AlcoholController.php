@@ -91,25 +91,25 @@ class AlcoholController extends Controller
         // $target_cups = round($target_cups, 1);
 
         //計算した結果をconversionsテーブルのtarget_cupsカラムに挿入(下記に記述)
-        $based_calculation = DB::table('alcohols')
-            ->join('conversions', function ($join){
-				$join->on('alcohols.id', '=', 'conversions.based_alcohol_id');})
-            ->orderBy(DB::raw('conversions.updated_at'), 'desc')
-            ->take(1)
-            ->select(DB::raw('alcohols.amount * alcohols.degree * conversions.based_cups as Bc'))
-            ->get();
+        // $based_calculation = DB::table('alcohols')
+        //     ->join('conversions', function ($join){
+		// 		$join->on('alcohols.id', '=', 'conversions.based_alcohol_id');})
+        //     ->orderBy(DB::raw('conversions.updated_at'), 'desc')
+        //     ->take(1)
+        //     ->select(DB::raw('alcohols.amount * alcohols.degree * conversions.based_cups as Bc'))
+        //     ->get();
         //ddd($based_calculation);
 
-        $target_calculation = DB::table('alcohols')
-            ->join('conversions', function ($join){
-				$join->on('alcohols.id', '=', 'conversions.target_alcohol_id');})
-            ->orderBy(DB::raw('conversions.updated_at'), 'desc')
-            ->take(1)
-            ->select(DB::raw('alcohols.amount * alcohols.degree as Tc'))
-            ->get();
+        // $target_calculation = DB::table('alcohols')
+        //     ->join('conversions', function ($join){
+		// 		$join->on('alcohols.id', '=', 'conversions.target_alcohol_id');})
+        //     ->orderBy(DB::raw('conversions.updated_at'), 'desc')
+        //     ->take(1)
+        //     ->select(DB::raw('alcohols.amount * alcohols.degree as Tc'))
+        //     ->get();
         //ddd($target_calculation);
 
-        $target_cups = round(($based_calculation[0]->Bc / $target_calculation[0]->Tc), 1);
+        //$target_cups = round(($based_calculation[0]->Bc / $target_calculation[0]->Tc), 1);
         //ddd($target_cups);
 
         $based_alcohol_phrase = Alcohol::find($conversion->based_alcohol_id)->phrase;
@@ -117,7 +117,30 @@ class AlcoholController extends Controller
         // bladeで 変数$conversion_nameの中のデータを取り出すときはアローではなく，`$conversion_name['based_alcohol_id']`みたいにやる
         // $conversion_nameはテーブルではなくて配列だから？？
 
+        //viewtableを使って計算
+        DB::statement(
+            "create or replace view b_calc as 
+            select alcohols.amount * alcohols.degree * conversions.based_cups as Bc
+            from alcohols
+            inner join conversions
+            on conversions.based_alcohol_id = alcohols.id
+            order by conversions.updated_at desc
+            limit 1"
+        );
 
+        DB::statement(
+            "create or replace view t_calc as 
+            select alcohols.amount * alcohols.degree as Tc
+            from alcohols
+            inner join conversions
+            on conversions.target_alcohol_id = alcohols.id
+            order by conversions.updated_at desc
+            limit 1"
+        );
+        $calc = DB::select("select Bc / Tc as result from b_calc, t_calc");
+        //ddd($calc);
+        $target_cups = round($calc[0]->result, 1);
+        //ddd($target_cups);
 
         // 許容量に対する飲んだ量の割合を計算する
         $based_for_tolerance_ratio = DB::table('conversions as c')
